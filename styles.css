@@ -1,0 +1,378 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #f5f5f5;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.last-update {
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.certification-notice {
+    background: #fef5e7;
+    border-left: 4px solid #f39c12;
+    padding: 12px 15px;
+    margin-top: 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #744210;
+}
+
+.certification-notice strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.section {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.section h2 {
+    color: #2c5282;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.section h3 {
+    color: #2d3748;
+    margin: 20px 0 10px 0;
+    font-size: 16px;
+}
+
+.race {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.race:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.race-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.race-title-section {
+    flex: 1;
+}
+
+.race-title {
+    font-weight: 600;
+    color: #1a202c;
+    font-size: 20px;
+    display: inline-block;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.status-badge.counting {
+    background: #bee3f8;
+    color: #2c5282;
+}
+
+.status-badge.late-count {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.status-badge.early-count {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+.ballot-count-status {
+    background: #edf2f7;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.show-all-btn {
+    background: #e2e8f0;
+    color: #2d3748;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.show-all-btn:hover {
+    background: #cbd5e0;
+}
+
+.candidate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.candidate.top-candidate {
+    background: #f7fafc;
+    padding: 10px 12px;
+    margin: 0 -12px 6px -12px;
+    border-radius: 4px;
+}
+
+.candidate.top-candidate .candidate-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.candidate.hidden {
+    display: none;
+}
+
+.candidate-name {
+    flex: 1;
+    font-size: 15px;
+}
+
+.candidate-rank {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.candidate-rank.rank-1 {
+    background: #ffd700;
+    color: #744210;
+}
+
+.candidate-rank.rank-2 {
+    background: #c0c0c0;
+    color: #2d3748;
+}
+
+.party {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+.party.Dem { background: #3182ce; color: white; }
+.party.Rep { background: #e53e3e; color: white; }
+.party.NPP, .party.Grn, .party.Lib, .party.AI { background: #718096; color: white; }
+.party.P-F { background: #718096; color: white; }
+
+.votes {
+    text-align: right;
+    min-width: 150px;
+}
+
+.vote-count {
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.vote-percent {
+    color: #718096;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.progress-bar {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #48bb78;
+    transition: width 0.3s ease;
+}
+
+.progress-fill.leading {
+    background: #3182ce;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #718096;
+}
+
+.error {
+    background: #fed7d7;
+    color: #c53030;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.refresh-btn {
+    background: #3182ce;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.refresh-btn:hover {
+    background: #2c5282;
+}
+
+.info-box {
+    background: #bee3f8;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.link-button {
+    display: inline-block;
+    background: #48bb78;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.link-button:hover {
+    background: #38a169;
+}
+
+.collapsed-info {
+    color: #718096;
+    font-size: 13px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.top-two-note {
+    background: #fef5e7;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #744210;
+    margin-top: 10px;
+}
+
+.top-two-note strong {
+    color: #744210;
+}
+
+.compact-candidate {
+    border-bottom: none !important;
+}
+
+.compact-candidate .progress-bar {
+    display: none;
+}
+
+.race-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.race-link-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px 15px;
+    background: #f7fafc;
+    transition: all 0.2s;
+}
+
+.race-link-card:hover {
+    border-color: #3182ce;
+    background: #edf2f7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.race-link-card h4 {
+    color: #2d3748;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.race-link-card .links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.race-link-card a {
+    font-size: 13px;
+    color: #3182ce;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.race-link-card a:hover {
+    text-decoration: underline;
+}
+
+.race-link-card .separator {
+    color: #cbd5e0;
+}
