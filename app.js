@@ -233,33 +233,34 @@ function renderRace(raceName, data) {
     const ballotCountHTML = renderBallotCountStatus(data, reportingTime, raceName);
 
     const candidatesHTML = sortedCandidates
-        .map((candidate, index) => {
-            const name = candidate.Name || 'Unknown';
-            const votes = candidate.Votes || '0';
-            const party = candidate.Party || '';
-            const percent = parsePercent(candidate.Percent);
+    .map((candidate, index) => {
+        const name = candidate.Name || 'Unknown';
+        const votes = candidate.Votes || '0';
+        const party = candidate.Party || '';
+        const percent = parsePercent(candidate.Percent);
 
-            const isTopCandidate = index < CANDIDATES_TO_SHOW;
-            const hiddenClass = !isTopCandidate && hasManyCandidates ? 'hidden' : '';
-            const topClass = index < 2 ? 'top-candidate' : '';
+        const isTopCandidate = index < CANDIDATES_TO_SHOW;
+        const hiddenClass = !isTopCandidate && hasManyCandidates ? 'hidden' : '';
+        const topClass = index < 2 ? 'top-candidate' : '';
 
-            const showProgressBar = percent >= MIN_PERCENT_FOR_BAR;
-            const compactClass = !showProgressBar ? 'compact-candidate' : '';
+        const showProgressBar = percent >= MIN_PERCENT_FOR_BAR;
+        const compactClass = !showProgressBar ? 'compact-candidate' : '';
 
-            const rankNum = index + 1;
-            let rankBadge = '';
-            if (index < 2) {
-                rankBadge = '<span class="candidate-rank rank-' + rankNum + '">' + rankNum + '</span>';
-            }
+        const rankNum = index + 1;
+        let rankBadge = '';
+        if (index < 2) {
+            rankBadge = '<span class="candidate-rank rank-' + rankNum + '">' + rankNum + '</span>';
+        }
 
-            const partyBadge = party ? '<span class="party ' + party + '">' + party + '</span>' : '';
+        const partyBadge = party ? '<span class="party ' + party + '">' + party + '</span>' : '';
 
-            const progressBar = showProgressBar ?
-                '<div class="progress-bar ' + hiddenClass + '" data-race="' + raceId + '">' +
-                    '<div class="progress-fill ' + (index === 0 ? 'leading' : '') + '" style="width: ' + Math.min(percent, 100) + '%"></div>' +
-                '</div>' : '';
+        const progressBar = showProgressBar ?
+            '<div class="progress-bar">' +
+                '<div class="progress-fill ' + (index === 0 ? 'leading' : '') + '" style="width: ' + Math.min(percent, 100) + '%"></div>' +
+            '</div>' : '';
 
-            return '<div class="candidate ' + topClass + ' ' + hiddenClass + ' ' + compactClass + '" data-race="' + raceId + '">' +
+        return '<div class="candidate ' + topClass + ' ' + hiddenClass + ' ' + compactClass + '" data-race="' + raceId + '">' +
+            '<div class="candidate-info">' +
                 '<div class="candidate-name">' +
                     rankBadge + name + partyBadge +
                 '</div>' +
@@ -267,9 +268,11 @@ function renderRace(raceName, data) {
                     '<div class="vote-count">' + votes + '</div>' +
                     '<div class="vote-percent">' + percent + '%</div>' +
                 '</div>' +
-            '</div>' + progressBar;
-        })
-        .join('');
+            '</div>' +
+            progressBar +
+        '</div>';
+    })
+    .join('');
 
     const showAllButton = hasManyCandidates ?
         '<button class="show-all-btn" data-race-btn="' + raceId + '" onclick="toggleShowAll(\'' + raceId + '\')">Show all ' + sortedCandidates.length + ' candidates</button>' : '';
