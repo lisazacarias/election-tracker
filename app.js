@@ -1,7 +1,8 @@
 let autoRefreshInterval;
 const CANDIDATES_TO_SHOW = 5;
 const MIN_PERCENT_FOR_BAR = 1.0;
-const FETCH_TIMEOUT = 10000; // 10 second timeout
+const FETCH_TIMEOUT = 20000;
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 const RACE_ENDPOINTS = {
     // Federal - uses different subdomain and structure
@@ -10,42 +11,18 @@ const RACE_ENDPOINTS = {
         'https://api.sos.ca.gov/returns/us-rep/district/14'
     ],
 
-    // Statewide
-    governor: [
-        'https://api.sos.ca.gov/returns/governor',
-        'https://dp.electionresults.sos.ca.gov/returns/governor'
-    ],
-    ltGovernor: [
-        'https://api.sos.ca.gov/returns/lieutenant-governor',
-        'https://dp.electionresults.sos.ca.gov/returns/lieutenant-governor'
-    ],
-    secretary: [
-        'https://api.sos.ca.gov/returns/secretary-of-state',
-        'https://dp.electionresults.sos.ca.gov/returns/secretary-of-state'
-    ],
-    attorneyGeneral: [
-        'https://api.sos.ca.gov/returns/attorney-general',
-        'https://dp.electionresults.sos.ca.gov/returns/attorney-general'
-    ],
-    insurance: [
-        'https://api.sos.ca.gov/returns/insurance-commissioner',
-        'https://dp.electionresults.sos.ca.gov/returns/insurance-commissioner'
-    ],
-    controller: [
-        'https://api.sos.ca.gov/returns/controller',
-        'https://dp.electionresults.sos.ca.gov/returns/controller'
-    ],
-    treasurer: [
-        'https://api.sos.ca.gov/returns/treasurer',
-        'https://dp.electionresults.sos.ca.gov/returns/treasurer'
-    ],
-    superintendent: [
-        'https://api.sos.ca.gov/returns/superintendent-of-public-instruction',
-        'https://dp.electionresults.sos.ca.gov/returns/superintendent-of-public-instruction'
-    ],
+    // Statewide — dp.electionresults.sos.ca.gov returns HTML for these paths, so api.sos.ca.gov only
+    governor: ['https://api.sos.ca.gov/returns/governor'],
+    ltGovernor: ['https://api.sos.ca.gov/returns/lieutenant-governor'],
+    secretary: ['https://api.sos.ca.gov/returns/secretary-of-state'],
+    attorneyGeneral: ['https://api.sos.ca.gov/returns/attorney-general'],
+    insurance: ['https://api.sos.ca.gov/returns/insurance-commissioner'],
+    controller: ['https://api.sos.ca.gov/returns/controller'],
+    treasurer: ['https://api.sos.ca.gov/returns/treasurer'],
+    superintendent: ['https://api.sos.ca.gov/returns/superintendent-of-public-instruction'],
     equalization2: [
-        'https://dp.electionresults.sos.ca.gov/returns/boe/district/2',
-        'https://api.sos.ca.gov/returns/board-of-equalization/district/2'
+        'https://api.sos.ca.gov/returns/board-of-equalization/district/2',
+        'https://dp.electionresults.sos.ca.gov/returns/boe/district/2'
     ],
 
     // Legislative
@@ -79,13 +56,13 @@ function estimateBallotsCounted(data, raceName) {
     if (raceName && raceName.includes('House District')) {
         estimatedRegisteredVoters = 422557;
     } else if (raceName && raceName.includes('State Senate District')) {
-        estimatedRegisteredVoters = 930000;
+        estimatedRegisteredVoters = 531343;
     } else if (raceName && raceName.includes('State Assembly District')) {
-        estimatedRegisteredVoters = 465000;
+        estimatedRegisteredVoters = 290773;
     } else if (raceName && raceName.includes('Board of Equalization')) {
-        estimatedRegisteredVoters = 5500000;
+        estimatedRegisteredVoters = 5927373;
     } else {
-        estimatedRegisteredVoters = 22000000;
+        estimatedRegisteredVoters = 23155447;
     }
 
     const expectedTotalBallots = estimatedRegisteredVoters * estimatedTurnout;
@@ -146,11 +123,9 @@ function renderBallotCountStatus(data, reportingTime, raceName) {
     '</div>';
 }
 
-// Add timeout to fetch requests
-async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT) {
+async function attemptFetch(url, timeout) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
-
     try {
         const response = await fetch(url, {
             signal: controller.signal,
@@ -161,6 +136,16 @@ async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT) {
     } catch (error) {
         clearTimeout(id);
         throw error;
+    }
+}
+
+async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT) {
+    try {
+        return await attemptFetch(url, timeout);
+    } catch (err) {
+        if (err.name === 'AbortError') throw err;
+        // CORS error — retry via proxy (used on GitHub Pages)
+        return await attemptFetch(CORS_PROXY + encodeURIComponent(url), timeout);
     }
 }
 
@@ -343,16 +328,13 @@ async function fetchStatewideResults() {
         { name: 'Board of Equalization District 2', key: 'equalization2' }
     ];
 
-    let racesHTML = [];
+    const racesHTML = [];
 
     for (const race of races) {
         const result = await tryEndpoints(race.name, RACE_ENDPOINTS[race.key]);
-
-        if (result.success) {
-            racesHTML.push(renderRace(race.name, result.data));
-        } else {
-            racesHTML.push(renderLinkOnlyRace(race.name));
-        }
+        racesHTML.push(result.success
+            ? renderRace(race.name, result.data)
+            : renderLinkOnlyRace(race.name));
     }
 
     container.innerHTML = racesHTML.join('');
