@@ -1,42 +1,7 @@
-// Replace the top of app.js with this:
 let autoRefreshInterval;
 const CANDIDATES_TO_SHOW = 5;
 const MIN_PERCENT_FOR_BAR = 1.0;
-const FETCH_TIMEOUT = 10000;
-
-// Detect environment
-const IS_NETLIFY = window.location.hostname.includes('netlify.app') ||
-                   window.location.hostname !== 'localhost';
-
-// Use Netlify function in production, AllOrigins proxy for local dev
-const getProxiedUrl = (url) => {
-    if (IS_NETLIFY) {
-        return `/.netlify/functions/proxy?url=${encodeURIComponent(url)}`;
-    } else {
-        return `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-    }
-};
-
-// Update fetchWithTimeout:
-async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT) {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
-
-    const proxiedUrl = getProxiedUrl(url);
-
-    try {
-        const response = await fetch(proxiedUrl, {
-            signal: controller.signal,
-            headers: { 'Accept': 'application/json' }
-        });
-        clearTimeout(id);
-        return response;
-    } catch (error) {
-        clearTimeout(id);
-        throw error;
-    }
-}
-
+const FETCH_TIMEOUT = 10000; // 10 second timeout
 
 const RACE_ENDPOINTS = {
     // Federal - uses different subdomain and structure
@@ -181,6 +146,23 @@ function renderBallotCountStatus(data, reportingTime, raceName) {
     '</div>';
 }
 
+// Add timeout to fetch requests
+async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+
+    try {
+        const response = await fetch(url, {
+            signal: controller.signal,
+            headers: { 'Accept': 'application/json' }
+        });
+        clearTimeout(id);
+        return response;
+    } catch (error) {
+        clearTimeout(id);
+        throw error;
+    }
+}
 
 async function tryEndpoints(raceName, endpoints) {
     for (const endpoint of endpoints) {
