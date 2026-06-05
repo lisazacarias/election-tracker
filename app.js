@@ -173,18 +173,20 @@ function renderLinkOnlyRace(raceName, ballotpediaUrl = null) {
 }
 
 function toggleShowAll(raceId) {
-    const hiddenCandidates = document.querySelectorAll('[data-race="' + raceId + '"].hidden');
+    const allCandidates = Array.from(document.querySelectorAll('[data-race="' + raceId + '"]'));
+    const extraCandidates = allCandidates.slice(CANDIDATES_TO_SHOW);
     const btn = document.querySelector('[data-race-btn="' + raceId + '"]');
     const collapsedInfo = document.querySelector('[data-collapsed="' + raceId + '"]');
 
-    if (hiddenCandidates[0] && hiddenCandidates[0].classList.contains('hidden')) {
-        hiddenCandidates.forEach(el => el.classList.remove('hidden'));
+    const isCollapsed = extraCandidates[0] && extraCandidates[0].classList.contains('hidden');
+
+    if (isCollapsed) {
+        extraCandidates.forEach(el => el.classList.remove('hidden'));
         btn.textContent = 'Show fewer';
         if (collapsedInfo) collapsedInfo.style.display = 'none';
     } else {
-        hiddenCandidates.forEach(el => el.classList.add('hidden'));
-        const totalCount = hiddenCandidates.length + CANDIDATES_TO_SHOW;
-        btn.textContent = 'Show all ' + totalCount + ' candidates';
+        extraCandidates.forEach(el => el.classList.add('hidden'));
+        btn.textContent = 'Show all ' + allCandidates.length + ' candidates';
         if (collapsedInfo) collapsedInfo.style.display = 'block';
     }
 }

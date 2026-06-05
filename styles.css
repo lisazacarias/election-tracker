@@ -611,3 +611,28 @@ h1 {
 .local-race-list li:last-child {
     border-bottom: none;
 }
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+    .container { padding: 16px 12px 40px; }
+
+    .race { padding: 14px 14px; }
+
+    .race-header { flex-wrap: wrap; }
+
+    .show-all-btn { font-size: 11px; padding: 4px 10px; }
+
+    .votes { min-width: 100px; }
+
+    .vote-count { font-size: 14px; }
+
+    .vote-percent { font-size: 12px; }
+
+    .ballot-count-pct { font-size: 22px; }
+
+    .ballot-count-sub { white-space: normal; }
+
+    .ballot-count-inner { gap: 8px; }
+
+    .status-badge { font-size: 9px; padding: 3px 6px; }
+}
