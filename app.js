@@ -1,4 +1,7 @@
 let autoRefreshInterval;
+let countdownInterval;
+let nextRefreshAt = null;
+const REFRESH_MS = 300000;
 const CANDIDATES_TO_SHOW = 5;
 const MIN_PERCENT_FOR_BAR = 1.0;
 const FETCH_TIMEOUT = 20000;
@@ -229,6 +232,7 @@ function renderRace(raceName, data) {
         }
 
         const partyBadge = party ? '<span class="party ' + party + '">' + party + '</span>' : '';
+        const incumbentBadge = candidate.incumbent ? '<span class="incumbent">Incumbent</span>' : '';
 
         const progressBar = showProgressBar ?
             '<div class="progress-bar">' +
@@ -238,7 +242,7 @@ function renderRace(raceName, data) {
         return '<div class="candidate ' + topClass + ' ' + hiddenClass + ' ' + compactClass + '" data-race="' + raceId + '">' +
             '<div class="candidate-info">' +
                 '<div class="candidate-name">' +
-                    rankBadge + name + partyBadge +
+                    rankBadge + name + partyBadge + incumbentBadge +
                 '</div>' +
                 '<div class="votes">' +
                     '<div class="vote-count">' + votes + '</div>' +
@@ -384,15 +388,29 @@ async function refreshData() {
         }
 
         document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+        nextRefreshAt = Date.now() + REFRESH_MS;
     } catch (error) {
         showError('Error refreshing data: ' + error.message);
         console.error('Refresh error:', error);
         document.getElementById('lastUpdate').textContent = 'Error - ' + new Date().toLocaleTimeString();
+        nextRefreshAt = Date.now() + REFRESH_MS;
     }
 }
 
+function updateCountdown() {
+    const el = document.getElementById('nextUpdate');
+    if (!el || !nextRefreshAt) return;
+    const secsLeft = Math.max(0, Math.ceil((nextRefreshAt - Date.now()) / 1000));
+    const m = Math.floor(secsLeft / 60);
+    const s = String(secsLeft % 60).padStart(2, '0');
+    el.textContent = m + ':' + s;
+}
+
 function startAutoRefresh() {
-    autoRefreshInterval = setInterval(refreshData, 300000); // 5 minutes
+    nextRefreshAt = Date.now() + REFRESH_MS;
+    updateCountdown();
+    autoRefreshInterval = setInterval(refreshData, REFRESH_MS);
+    countdownInterval = setInterval(updateCountdown, 1000);
 }
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -401,7 +419,6 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 window.addEventListener('beforeunload', function() {
-    if (autoRefreshInterval) {
-        clearInterval(autoRefreshInterval);
-    }
+    clearInterval(autoRefreshInterval);
+    clearInterval(countdownInterval);
 });
