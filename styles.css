@@ -12,7 +12,7 @@
     --blue-dim: rgba(143, 180, 212, 0.12);
     --text: #e8dede;
     --text-bright: #f5eeee;
-    --text-muted: #5c4042;
+    --text-muted: #8a6567;
     --text-label: #9e8283;
     --gold: #d4a96a;
     --gold-dim: rgba(212, 169, 106, 0.12);
@@ -173,7 +173,7 @@ h1 {
 .section h2 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--text-muted);
