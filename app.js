@@ -5,11 +5,7 @@ const FETCH_TIMEOUT = 20000;
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 const RACE_ENDPOINTS = {
-    // Federal - uses different subdomain and structure
-    house14: [
-        'https://dp.electionresults.sos.ca.gov/returns/us-rep/district/14',
-        'https://api.sos.ca.gov/returns/us-rep/district/14'
-    ],
+    house14: ['https://api.sos.ca.gov/returns/us-rep/district/14'],
 
     // Statewide — dp.electionresults.sos.ca.gov returns HTML for these paths, so api.sos.ca.gov only
     governor: ['https://api.sos.ca.gov/returns/governor'],
@@ -25,15 +21,8 @@ const RACE_ENDPOINTS = {
         'https://dp.electionresults.sos.ca.gov/returns/boe/district/2'
     ],
 
-    // Legislative
-    senate10: [
-        'https://dp.electionresults.sos.ca.gov/returns/state-senate/district/10',
-        'https://api.sos.ca.gov/returns/state-senate/district/10'
-    ],
-    assembly20: [
-        'https://dp.electionresults.sos.ca.gov/returns/state-assembly/district/20',
-        'https://api.sos.ca.gov/returns/state-assembly/district/20'
-    ]
+    senate10: ['https://api.sos.ca.gov/returns/state-senate/district/10'],
+    assembly20: ['https://api.sos.ca.gov/returns/state-assembly/district/20']
 };
 
 function parseVotes(votesStr) {
@@ -106,19 +95,19 @@ function renderBallotCountStatus(data, reportingTime, raceName) {
     }
 
     return '<div class="ballot-count-status">' +
-        '<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">' +
-            '<div style="font-size: 28px; font-weight: 700; color: #2c5282;">~' + percentCounted + '%</div>' +
-            '<div style="flex: 1;">' +
-                '<div style="font-size: 13px; color: #4a5568; font-weight: 600;">Estimated ballots counted</div>' +
-                '<div style="font-size: 12px; color: #718096;">' + votesCountedFormatted + ' of ' + expectedVotesDisplay + '</div>' +
+        '<div class="ballot-count-inner">' +
+            '<div class="ballot-count-pct">~' + percentCounted + '%</div>' +
+            '<div class="ballot-count-labels">' +
+                '<div class="ballot-count-title">Est. ballots counted</div>' +
+                '<div class="ballot-count-sub">' + votesCountedFormatted + ' of ' + expectedVotesDisplay + '</div>' +
             '</div>' +
             statusBadge +
         '</div>' +
-        '<div class="progress-bar" style="height: 6px; margin-top: 8px;">' +
-            '<div class="progress-fill" style="width: ' + percentCounted + '%; background: #3182ce;"></div>' +
+        '<div class="ballot-progress">' +
+            '<div class="ballot-progress-fill" style="width: ' + percentCounted + '%"></div>' +
         '</div>' +
-        '<div style="font-size: 11px; color: #718096; margin-top: 6px; font-style: italic;">' +
-            statusMessage + ' • Updated ' + (reportingTime || 'recently') +
+        '<div class="ballot-count-footer">' +
+            statusMessage + ' · Updated ' + (reportingTime || 'recently') +
         '</div>' +
     '</div>';
 }
@@ -175,10 +164,10 @@ function renderLinkOnlyRace(raceName, ballotpediaUrl = null) {
         '<div class="race-header">' +
             '<div class="race-title">' + raceName + '</div>' +
         '</div>' +
-        '<p style="color: #718096; font-size: 14px; margin-bottom: 10px;">View results on official sources:</p>' +
-        '<div style="display: flex; gap: 10px; flex-wrap: wrap;">' +
+        '<p class="race-link-only-text">Results not yet available — view on official sources:</p>' +
+        '<div style="display: flex; gap: 8px; flex-wrap: wrap;">' +
             '<a href="https://electionresults.sos.ca.gov/" target="_blank" class="link-button">CA Secretary of State →</a>' +
-            (ballotpediaUrl ? '<a href="' + ballotpediaUrl + '" target="_blank" class="link-button" style="background: #3182ce;">Ballotpedia →</a>' : '') +
+            (ballotpediaUrl ? '<a href="' + ballotpediaUrl + '" target="_blank" class="link-button ballotpedia">Ballotpedia →</a>' : '') +
         '</div>' +
     '</div>';
 }

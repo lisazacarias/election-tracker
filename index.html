@@ -3,105 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hayward Election Results Tracker</title>
+    <title>Hayward Election Results · June 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Mulish:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🗳️ Hayward Election Results</h1>
-            <div class="last-update">Last updated: <span id="lastUpdate">Never</span></div>
-            <div class="certification-notice">
-                <strong>⚠️ Unofficial Results</strong>
-                Results will be certified by July 10, 2026. Mail-in and provisional ballots continue to be counted.
+            <div class="header-top">
+                <h1>Hayward Election Results<br>June 2026 Primary</h1>
+                <div class="live-badge">
+                    <span class="live-dot"></span>
+                    Live
+                </div>
             </div>
-            <button class="refresh-btn" onclick="refreshData()">🔄 Refresh Results</button>
+            <div class="header-meta">
+                <div class="last-update">Updated: <span id="lastUpdate">—</span></div>
+                <button class="refresh-btn" onclick="refreshData()">↻ Refresh</button>
+            </div>
+            <div class="certification-notice" style="margin-top: 12px;">
+                <strong>Unofficial Results</strong> — Results will be certified by July 10, 2026. Mail-in and provisional ballots continue to be counted.
+            </div>
         </header>
 
         <div class="info-box">
-            <strong>Live Tracking:</strong> Showing top 5 candidates in each race. 
-            Ballot counting percentage updates as votes are tallied. Auto-refreshes every 5 minutes.
+            Showing top 5 candidates per race. Ballot count % is estimated from votes cast vs. expected turnout. Auto-refreshes every 5 minutes.
         </div>
 
         <div id="error-container"></div>
 
-        <!-- Federal Races -->
         <div class="section">
-            <h2>Federal Races</h2>
+            <div class="section-header">
+                <h2>Federal</h2>
+                <div class="section-line"></div>
+            </div>
             <div id="federal-races">
-                <div class="loading">⏳ Loading federal results...</div>
+                <div class="loading">Loading…</div>
             </div>
         </div>
 
-        <!-- Statewide Races -->
         <div class="section">
-            <h2>California Statewide Races</h2>
+            <div class="section-header">
+                <h2>California Statewide</h2>
+                <div class="section-line"></div>
+            </div>
             <div id="statewide-races">
-                <div class="loading">⏳ Loading statewide results...</div>
+                <div class="loading">Loading…</div>
             </div>
         </div>
 
-        <!-- State Legislative Races -->
         <div class="section">
-            <h2>State Legislative Races</h2>
+            <div class="section-header">
+                <h2>State Legislature</h2>
+                <div class="section-line"></div>
+            </div>
             <div id="legislative-races">
-                <div class="loading">⏳ Loading legislative results...</div>
+                <div class="loading">Loading…</div>
             </div>
         </div>
 
-        <!-- Local Races -->
         <div class="section">
-            <h2>Alameda County & Local Races</h2>
-            <div class="race-links">
-                <div class="race-link-card">
-                    <h4>Alameda County District Attorney</h4>
-                    <div class="links">
-                        <a href="https://ballotpedia.org/Alameda_County_District_Attorney_election,_2026_(special_election)" target="_blank">Ballotpedia</a>
-                        <span class="separator">•</span>
-                        <a href="https://alamedacountyca.gov/rovresults/259/" target="_blank">County Results</a>
-                    </div>
-                </div>
-                
-                <div class="race-link-card">
-                    <h4>County Superintendent of Schools</h4>
-                    <div class="links">
-                        <a href="https://ballotpedia.org/Alameda_County_Superintendent_of_Schools" target="_blank">Ballotpedia</a>
-                        <span class="separator">•</span>
-                        <a href="https://alamedacountyca.gov/rovresults/259/" target="_blank">County Results</a>
-                    </div>
-                </div>
-                
-                <div class="race-link-card">
-                    <h4>Board of Supervisors District 2</h4>
-                    <div class="links">
-                        <a href="https://ballotpedia.org/Alameda_County_Board_of_Supervisors" target="_blank">Ballotpedia</a>
-                        <span class="separator">•</span>
-                        <a href="https://alamedacountyca.gov/rovresults/259/" target="_blank">County Results</a>
-                    </div>
-                </div>
-                
-                <div class="race-link-card">
-                    <h4>Superior Court (Office No. 13)</h4>
-                    <div class="links">
-                        <a href="https://alamedacountyca.gov/rovresults/259/" target="_blank">County Results</a>
-                    </div>
-                </div>
-                
-                <div class="race-link-card">
-                    <h4>Superior Court (Office No. 19)</h4>
-                    <div class="links">
-                        <a href="https://alamedacountyca.gov/rovresults/259/" target="_blank">County Results</a>
-                    </div>
-                </div>
+            <div class="section-header">
+                <h2>Alameda County &amp; Local</h2>
+                <div class="section-line"></div>
             </div>
-            
-            <div style="margin-top: 20px; padding: 15px; background: #edf2f7; border-radius: 6px;">
-                <p style="font-size: 14px; color: #4a5568; margin-bottom: 10px;">
-                    <strong>View all Alameda County results:</strong>
-                </p>
-                <a href="https://alamedacountyca.gov/rovresults/259/" target="_blank" class="link-button">
-                    Official Alameda County Results →
-                </a>
+            <div class="local-races-block">
+                <ul class="local-race-list">
+                    <li>Alameda County District Attorney</li>
+                    <li>County Superintendent of Schools</li>
+                    <li>Board of Supervisors — District 2</li>
+                    <li>Superior Court — Office No. 13</li>
+                    <li>Superior Court — Office No. 19</li>
+                </ul>
+                <a href="https://alamedacountyca.gov/rovresults/259/" target="_blank" class="link-button">View all on Official Alameda County Results →</a>
             </div>
         </div>
     </div>
