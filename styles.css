@@ -1,23 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Mulish:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Mulish:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-    --bg: #05080f;
-    --bg-card: #0b1120;
-    --bg-elevated: #101828;
-    --border: #162030;
-    --border-bright: #243450;
-    --accent: #e63946;
-    --accent-dim: rgba(230, 57, 70, 0.12);
-    --blue: #2563eb;
-    --blue-dim: rgba(37, 99, 235, 0.15);
-    --text: #c8d8f0;
-    --text-bright: #e8f0fc;
-    --text-muted: #3d5570;
-    --text-label: #7a90b0;
-    --gold: #f0b429;
-    --gold-dim: rgba(240, 180, 41, 0.12);
-    --silver: #6a7f98;
-    --green: #10b981;
+    --bg: #0d0809;
+    --bg-card: #150e0f;
+    --bg-elevated: #1c1415;
+    --border: #2a1a1b;
+    --border-bright: #3d2829;
+    --accent: #c2747a;
+    --accent-dim: rgba(194, 116, 122, 0.12);
+    --blue: #8fb4d4;
+    --blue-dim: rgba(143, 180, 212, 0.12);
+    --text: #e8dede;
+    --text-bright: #f5eeee;
+    --text-muted: #5c4042;
+    --text-label: #9e8283;
+    --gold: #d4a96a;
+    --gold-dim: rgba(212, 169, 106, 0.12);
+    --silver: #9a8a8b;
+    --green: #7dbfa0;
     --shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
@@ -31,8 +31,8 @@ body {
     min-height: 100vh;
     line-height: 1.5;
     background-image:
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(37, 99, 235, 0.08), transparent),
-        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(230, 57, 70, 0.05), transparent);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(194, 116, 122, 0.07), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(212, 169, 106, 0.04), transparent);
 }
 
 .container {
@@ -58,12 +58,12 @@ header {
 }
 
 h1 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(22px, 4vw, 32px);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 5vw, 40px);
     color: var(--text-bright);
-    letter-spacing: -0.5px;
-    line-height: 1.15;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
 }
 
 .live-badge {
@@ -74,7 +74,7 @@ h1 {
     border: 1px solid rgba(230, 57, 70, 0.3);
     padding: 5px 12px 5px 9px;
     border-radius: 4px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 1.5px;
@@ -148,13 +148,13 @@ h1 {
 }
 
 .info-box {
-    background: var(--blue-dim);
-    border: 1px solid rgba(37, 99, 235, 0.2);
-    border-left: 3px solid var(--blue);
+    background: rgba(194, 116, 122, 0.06);
+    border: 1px solid rgba(194, 116, 122, 0.15);
+    border-left: 3px solid var(--accent);
     padding: 10px 14px;
     border-radius: 4px;
     font-size: 13px;
-    color: rgba(147, 197, 253, 0.85);
+    color: rgba(232, 180, 182, 0.8);
     margin-bottom: 24px;
 }
 
@@ -171,7 +171,7 @@ h1 {
 }
 
 .section h2 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 2.5px;
@@ -214,11 +214,11 @@ h1 {
 .race-title-section { flex: 1; }
 
 .race-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 20px;
     color: var(--text-bright);
-    letter-spacing: -0.2px;
+    letter-spacing: 0.2px;
 }
 
 /* ── Ballot Count Status ── */
@@ -241,7 +241,7 @@ h1 {
     font-family: 'Fira Code', monospace;
     font-weight: 600;
     font-size: 26px;
-    color: var(--blue);
+    color: var(--gold);
     letter-spacing: -1px;
     line-height: 1;
 }
@@ -286,7 +286,7 @@ h1 {
 
 .ballot-progress-fill {
     height: 100%;
-    background: var(--blue);
+    background: var(--gold);
     border-radius: 2px;
     transition: width 0.6s ease;
 }
@@ -302,7 +302,7 @@ h1 {
     letter-spacing: 1px;
     text-transform: uppercase;
     white-space: nowrap;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 .status-badge.early-count {
@@ -394,7 +394,7 @@ h1 {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 .incumbent {
@@ -404,18 +404,18 @@ h1 {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     background: rgba(16, 185, 129, 0.1);
     color: var(--green);
     border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
-.party.Dem { background: rgba(37, 99, 235, 0.2); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.3); }
-.party.Rep { background: rgba(220, 38, 38, 0.2); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.3); }
+.party.Dem { background: rgba(143, 180, 212, 0.15); color: #8fb4d4; border: 1px solid rgba(143, 180, 212, 0.3); }
+.party.Rep { background: rgba(194, 116, 122, 0.15); color: #c2747a; border: 1px solid rgba(194, 116, 122, 0.3); }
 .party.NPP, .party.Grn, .party.Lib, .party.AI, .party.P-F {
-    background: rgba(100, 116, 139, 0.15);
-    color: #94a3b8;
-    border: 1px solid rgba(100, 116, 139, 0.25);
+    background: rgba(154, 138, 139, 0.15);
+    color: #9a8a8b;
+    border: 1px solid rgba(154, 138, 139, 0.25);
 }
 
 .votes {
@@ -448,12 +448,12 @@ h1 {
 
 .progress-fill {
     height: 100%;
-    background: #2d4a6e;
+    background: #5a3035;
     border-radius: 2px;
     transition: width 0.5s ease;
 }
 
-.progress-fill.leading { background: var(--blue); }
+.progress-fill.leading { background: var(--accent); }
 
 /* ── Show all / collapsed ── */
 .show-all-btn {
@@ -571,7 +571,7 @@ h1 {
 }
 
 .race-link-card h4 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
     font-size: 13px;
     color: var(--text-bright);
@@ -618,7 +618,7 @@ h1 {
     color: var(--text);
     padding: 8px 0;
     border-bottom: 1px solid var(--border);
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 .local-race-list li:last-child {
