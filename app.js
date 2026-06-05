@@ -19,10 +19,7 @@ const RACE_ENDPOINTS = {
     controller: ['https://api.sos.ca.gov/returns/controller'],
     treasurer: ['https://api.sos.ca.gov/returns/treasurer'],
     superintendent: ['https://api.sos.ca.gov/returns/superintendent-of-public-instruction'],
-    equalization2: [
-        'https://api.sos.ca.gov/returns/board-of-equalization/district/2',
-        'https://dp.electionresults.sos.ca.gov/returns/boe/district/2'
-    ],
+    equalization2: ['https://api.sos.ca.gov/returns/board-of-equalization/district/2'],
 
     senate10: ['https://api.sos.ca.gov/returns/state-senate/district/10'],
     assembly20: ['https://api.sos.ca.gov/returns/state-assembly/district/20']
