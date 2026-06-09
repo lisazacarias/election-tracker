@@ -40,7 +40,7 @@ function estimateBallotsCounted(data, raceName) {
     }, 0);
 
     let estimatedRegisteredVoters;
-    let estimatedTurnout = 0.30;
+    let estimatedTurnout = 0.35;
 
     if (raceName && raceName.includes('House District')) {
         estimatedRegisteredVoters = 422557;
